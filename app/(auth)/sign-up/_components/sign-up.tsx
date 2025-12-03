@@ -52,7 +52,9 @@ function SignUp() {
       body: formData,
     });
 
-    console.log(res);
+    const resData = res.data;
+    const { new_user: newUser } = resData;
+    setSendVerify(newUser.email);
     setIsLoading(false);
   }
 
@@ -129,7 +131,14 @@ function SignUp() {
 
             {sendVerify && (
               <div className="w-full flex items-center justify-center">
-                <p className="text-sm">Verification has sent to {sendVerify}</p>
+                <p className="text-xs">
+                  Verification has sent to{' '}
+                  <span>
+                    <a className="underline" href={sendVerify}>
+                      {sendVerify}
+                    </a>
+                  </span>
+                </p>
               </div>
             )}
 

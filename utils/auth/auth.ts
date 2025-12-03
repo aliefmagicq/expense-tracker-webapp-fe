@@ -12,6 +12,10 @@ type CreateSessionPayload = {
   };
 };
 
+export type CreateSession = {
+  session: CreateSessionPayload;
+};
+
 export default class AuthSession {
   private AUTH_KEY: Uint8Array;
   private duration: number;
@@ -40,13 +44,12 @@ export default class AuthSession {
       });
 
       return payload;
-    } catch (err) {
-      if (err instanceof Error) return {};
+    } catch {
       return null;
     }
   }
 
-  async createSession(payLoad: CreateSessionPayload) {
+  async createSession(payLoad: CreateSession) {
     const expires = new Date(Date.now() + this.duration);
     const jwtToken = await this.encryptToken({ ...payLoad, expires });
 
@@ -64,12 +67,12 @@ export default class AuthSession {
   async verifySession() {
     const jwtToken = (await cookies()).get(this.cookieName)?.value;
     if (!jwtToken) {
-      return { session: { token: { api_token: '' } } };
+      return { session: null };
     }
 
     const validJwtToken = await this.decryptToken(jwtToken);
     if (!validJwtToken) {
-      return { session: { token: { api_token: '' } } };
+      return { session: null };
     }
 
     return validJwtToken;
