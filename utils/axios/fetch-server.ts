@@ -5,9 +5,11 @@ import { JWTPayload } from 'jose';
 import AuthSession from '../auth/auth';
 
 type Session = {
-  token: {
-    api_token: string;
-    type: 'Bearer';
+  session: {
+    token: {
+      api_token: string;
+      type: 'Bearer';
+    };
   };
 };
 
@@ -26,15 +28,18 @@ export async function fetchServer({
   body,
   includeAuthorization = false,
 }: FetchServer) {
-  const session: JWTPayload = await new AuthSession().getSession();
-  const token = session.token as Session['token'];
+  const sessionPayload: JWTPayload = await new AuthSession().getSession();
+  const session = sessionPayload.session as Session['session'];
+  const token = session?.token ?? null;
 
   const includeHeaders = {
     'Content-Type': 'application/json',
   };
 
   const includeHeadersAuthorization = {
-    Authorization: `${token.type} ${token.api_token ?? ''}`,
+    Authorization: `${
+      token && token !== null ? `${token.type} ${token.api_token}` : ''
+    }`,
     'Content-Type': 'application/json',
   };
 

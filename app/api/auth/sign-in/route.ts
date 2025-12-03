@@ -20,9 +20,11 @@ export async function POST(request: Request) {
 
   const resData = res.data;
   await new AuthSession().createSession({
-    token: { ...resData.token },
-    userId: resData.user.id,
-    email: resData.user.email,
+    session: {
+      token: { ...resData.token },
+      userId: resData.user.id,
+      email: resData.user.email,
+    },
   });
 
   return CreateResponse.success({
