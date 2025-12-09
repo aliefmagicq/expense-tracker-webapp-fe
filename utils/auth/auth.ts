@@ -17,15 +17,11 @@ export type CreateSession = {
 };
 
 export default class AuthSession {
-  private AUTH_KEY: Uint8Array;
-  private duration: number;
-  private cookieName: string;
-
-  constructor() {
-    this.AUTH_KEY = new TextEncoder().encode(process.env.AUTH_SECRET);
-    this.duration = 7 * 24 * 60 * 60 * 1000;
-    this.cookieName = 'session';
-  }
+  constructor(
+    private AUTH_KEY = new TextEncoder().encode(process.env.AUTH_SECRET),
+    private duration = 7 * 24 * 60 * 60 * 1000,
+    private cookieName = 'session'
+  ) {}
 
   async encryptToken(payLoad: JWTPayload) {
     const jwtSign = new SignJWT(payLoad)

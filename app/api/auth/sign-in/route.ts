@@ -16,6 +16,7 @@ export async function POST(request: Request) {
     method: 'post',
     url: apiLaravelUrl,
     body: data,
+    includeAuthorization: false,
   });
 
   const resData = res.data;
