@@ -9,7 +9,6 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import { useState } from 'react';
 
 echarts.use([
   TitleComponent,
@@ -27,8 +26,8 @@ export default function BarEchart({
   baseCats: string[];
   materials: (string | number)[];
 }) {
-  const [cats, setCats] = useState<string[]>(() => baseCats ?? []);
-  const [mats, setMats] = useState<(string | number)[]>(() => materials ?? []);
+  const cats = baseCats;
+  const mats = materials;
 
   const options = {
     grid: { top: 20, right: 8, bottom: 24, left: 36 },

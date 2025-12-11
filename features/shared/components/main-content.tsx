@@ -1,5 +1,5 @@
-import { getServerSidePathname } from '@/utils/auth/get-server-side-pathname';
-import { ROOT_PATH_PLATFORM } from '@/utils/routes/root-path';
+import { getServerSidePathname } from '@/features/core/auth/get-server-side-pathname';
+import { ROOT_PATH_PLATFORM } from '@/features/core/routes/root-path';
 
 export default function MainContent({
   children,

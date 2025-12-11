@@ -38,6 +38,11 @@ export const MATERIALS = [
 ];
 
 export const SALDOS = [
-  { value: 1048, name: 'Balance' },
+  { value: 1048, name: 'Income' },
   { value: 735, name: 'Expense' },
 ];
+
+export type DistributionTransactions = {
+  name: 'Income' | 'Expense';
+  value: number | string;
+};

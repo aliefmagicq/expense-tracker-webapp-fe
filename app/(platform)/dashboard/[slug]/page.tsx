@@ -1,7 +1,9 @@
 import { cn } from '@/lib/utils';
-import MainContent from '../../_compontents/main-content';
-import BreadcumsSimple from '../../_compontents/ui/breadcums-simple';
-import CardSimple, { CARD_SIMPLES } from '../../_compontents/ui/card-simple';
+import MainContent from '../../../../features/shared/components/main-content';
+import BreadcumsSimple from '../../../../features/shared/components/breadcums-simple';
+import CardSimple, {
+  CARD_SIMPLES,
+} from '../../../../features/shared/components/card-simple';
 
 export default function SlugPage() {
   return (

@@ -20,15 +20,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { fetchClient } from '@/utils/axios/fetch-client';
-import ZodSchema from '@/utils/schemas/auth.schema';
+import { fetchClient } from '@/features/core/axios/fetch-client';
+import AuthSchema from '@/features/core/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
-const signUpSchema = ZodSchema.signUp();
+const signUpSchema = AuthSchema.signUp();
 
 function SignUp() {
   const [sendVerify, setSendVerify] = useState('');

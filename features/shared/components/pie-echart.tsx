@@ -22,9 +22,9 @@ echarts.use([
 ]);
 
 export default function PieEchart({
-  saldos,
+  data,
 }: {
-  saldos: Record<string, number | string>[];
+  data: Record<string, number | string>[];
 }) {
   const options = {
     tooltip: {
@@ -39,7 +39,7 @@ export default function PieEchart({
     },
     series: [
       {
-        name: 'Saldo',
+        name: 'Distribution Transactions',
         type: 'pie',
         radius: ['40%', '60%'],
         itemStyle: {
@@ -61,7 +61,7 @@ export default function PieEchart({
         labelLine: {
           show: true,
         },
-        data: saldos,
+        data: data,
       },
     ],
   };
