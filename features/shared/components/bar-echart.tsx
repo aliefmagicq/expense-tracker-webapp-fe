@@ -10,6 +10,36 @@ import {
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 
+type BarChart = {
+  componentType: string;
+  componentSubType: string;
+  componentIndex: number;
+  seriesType: string;
+  seriesIndex: number;
+  seriesId: string;
+  seriesName: string;
+  name: string;
+  dataIndex: number;
+  data: number;
+  value: number | string;
+  color: string;
+  dimensionNames: string[];
+  encode: Encode;
+  $vars: string[];
+  axisDim: string;
+  axisIndex: number;
+  axisType: string;
+  axisId: string;
+  axisValue: string;
+  axisValueLabel: string;
+  marker: string;
+};
+
+interface Encode {
+  x: number[];
+  y: number[];
+}
+
 echarts.use([
   TitleComponent,
   TooltipComponent,
@@ -93,7 +123,9 @@ export default function BarEchart({
       renderMode: 'html',
       backgroundColor: 'rgba(50,50,50,0.9)',
       borderColor: '#363642',
-      formatter: function (params: any[]) {
+      formatter: function (params: BarChart[]) {
+        console.log(params);
+
         const data = params[0]; // karena trigger axis, params array
         const value = data.value;
 

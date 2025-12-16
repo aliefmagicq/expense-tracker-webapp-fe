@@ -1,10 +1,35 @@
-import CardSimple2, {
-  ORGANIZATIONS,
-} from '@/features/shared/components/card-simple-2';
+import CardSimple2 from '@/features/shared/components/card-simple-2';
 import { Building, DollarSign, GitBranch } from 'lucide-react';
+import { fetchOrganizations } from '../utils/fetch-organizations';
+import { formatCurrency } from '@/features/core/formatter/currency';
 
-function CardSimpleDashboard2() {
-  return ORGANIZATIONS.map(organization => (
+type OrganizationsData = {
+  name: string;
+  description: string;
+  totalBalance: number;
+  branch: number;
+  transaction: number;
+};
+
+async function CardSimpleDashboard2() {
+  const { data: organizationsData } = await fetchOrganizations();
+  const createOrganizationsData = organizationsData.reduce(
+    (arr: OrganizationsData[], current) => {
+      return [
+        ...arr,
+        {
+          name: current.name,
+          description: current.description,
+          totalBalance: current.closing_balances_total,
+          branch: current.branches.length,
+          transaction: current.transactions_total,
+        },
+      ];
+    },
+    []
+  );
+
+  return createOrganizationsData.map(organization => (
     <CardSimple2
       key={organization.name}
       href={`/organizations/${organization.name
@@ -22,7 +47,12 @@ function CardSimpleDashboard2() {
 
       <CardSimple2.Main>
         <p className="text-sm opacity-50">Total Balance</p>
-        <p className="text-sm">{organization.totalBalance}</p>
+        <p className="text-sm">
+          {formatCurrency({
+            amount: organization.totalBalance,
+            minFracDigits: 2,
+          })}
+        </p>
       </CardSimple2.Main>
 
       <CardSimple2.Footer>

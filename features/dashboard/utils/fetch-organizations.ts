@@ -2,10 +2,8 @@ import { appConfig } from '@/app.config';
 import { fetchServer } from '@/features/core/axios/fetch-server';
 
 type FetchOrganizationsResponse = {
-  success: boolean;
-  message: string;
   data: Data[];
-  status_code: number;
+  error: string;
 };
 
 type Data = {
@@ -53,9 +51,19 @@ type Dailybalance = {
  */
 export async function fetchOrganizations(): Promise<FetchOrganizationsResponse> {
   const apiLaravelUrl = `${appConfig.laravelApiURL}/organization`;
-  return await fetchServer({
-    method: 'get',
-    url: apiLaravelUrl,
-    includeAuthorization: true,
-  });
+  try {
+    return await fetchServer({
+      method: 'get',
+      url: apiLaravelUrl,
+      includeAuthorization: true,
+    });
+  } catch (error) {
+    const setError =
+      error instanceof Error ? error.message : 'Unexpected error';
+
+    return {
+      data: [],
+      error: setError,
+    };
+  }
 }

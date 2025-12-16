@@ -1,11 +1,11 @@
+import BarChartSimpleDashboard from '@/features/dashboard/components/bar-chart-simple';
 import CardSimpleDashboard from '@/features/dashboard/components/card-simple';
 import CardSimpleDashboard2 from '@/features/dashboard/components/card-simple2';
 import PieChartSimpleDashboard from '@/features/dashboard/components/pie-chart-simple';
 import BreadcumsSimple from '../../../features/shared/components/breadcums-simple';
 import MainContent from '../../../features/shared/components/main-content';
-import BarChartSimpleDashboard from '@/features/dashboard/components/bar-chart-simple';
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
   return (
     <MainContent>
       <MainContent.Header>

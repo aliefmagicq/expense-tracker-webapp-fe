@@ -4,7 +4,7 @@ import { DistributionTransactions } from '@/features/shared/data/chart-simple';
 import { fetchOrganizations } from '../utils/fetch-organizations';
 
 async function PieChartSimpleDashboard() {
-  const { data } = await fetchOrganizations();
+  const { data, error } = await fetchOrganizations();
 
   /**
    * create data for pie chart
@@ -44,7 +44,11 @@ async function PieChartSimpleDashboard() {
     <CardEchartsSimple>
       <CardEchartsSimple.Header>Distribusi Transaksi</CardEchartsSimple.Header>
       <CardEchartsSimple.Main>
-        <PieEchart data={createDistributionTransactions} />
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          <PieEchart data={createDistributionTransactions} />
+        )}
       </CardEchartsSimple.Main>
     </CardEchartsSimple>
   );
