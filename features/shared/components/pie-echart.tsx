@@ -12,6 +12,35 @@ import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 echarts.use([]);
 
+type PieChart = {
+  componentType: string;
+  componentSubType: string;
+  componentIndex: number;
+  seriesType: string;
+  seriesIndex: number;
+  seriesId: string;
+  seriesName: string;
+  name: string;
+  dataIndex: number;
+  data: Data;
+  value: number;
+  color: string;
+  dimensionNames: [];
+  encode: Encode;
+  $vars: string[];
+  percent: number;
+  marker: string;
+};
+
+interface Encode {
+  value: number[];
+}
+
+interface Data {
+  name: string;
+  value: number;
+}
+
 echarts.use([
   TitleComponent,
   TooltipComponent,
@@ -22,9 +51,9 @@ echarts.use([
 ]);
 
 export default function PieEchart({
-  saldos,
+  data,
 }: {
-  saldos: Record<string, number | string>[];
+  data: Record<string, number | string>[];
 }) {
   const options = {
     tooltip: {
@@ -32,6 +61,17 @@ export default function PieEchart({
       renderMode: 'html',
       backgroundColor: 'rgba(50,50,50,0.9)',
       borderColor: '#363642',
+      formatter: (params: PieChart) => {
+        const { marker, seriesName } = params;
+        const { name, value } = params.data;
+
+        return `
+          <div class="echarts-tooltip-dark">
+            <strong>${seriesName}</strong><br/>
+            ${marker} ${name}: <strong>${value}</strong>
+          </div>
+        `;
+      },
     },
     legend: {
       top: '0%',
@@ -39,7 +79,7 @@ export default function PieEchart({
     },
     series: [
       {
-        name: 'Saldo',
+        name: 'Distribution Transactions',
         type: 'pie',
         radius: ['40%', '60%'],
         itemStyle: {
@@ -61,7 +101,7 @@ export default function PieEchart({
         labelLine: {
           show: true,
         },
-        data: saldos,
+        data: data,
       },
     ],
   };

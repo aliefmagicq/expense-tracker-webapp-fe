@@ -9,7 +9,36 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import { useState } from 'react';
+
+type BarChart = {
+  componentType: string;
+  componentSubType: string;
+  componentIndex: number;
+  seriesType: string;
+  seriesIndex: number;
+  seriesId: string;
+  seriesName: string;
+  name: string;
+  dataIndex: number;
+  data: number;
+  value: number | string;
+  color: string;
+  dimensionNames: string[];
+  encode: Encode;
+  $vars: string[];
+  axisDim: string;
+  axisIndex: number;
+  axisType: string;
+  axisId: string;
+  axisValue: string;
+  axisValueLabel: string;
+  marker: string;
+};
+
+interface Encode {
+  x: number[];
+  y: number[];
+}
 
 echarts.use([
   TitleComponent,
@@ -27,8 +56,8 @@ export default function BarEchart({
   baseCats: string[];
   materials: (string | number)[];
 }) {
-  const [cats, setCats] = useState<string[]>(() => baseCats ?? []);
-  const [mats, setMats] = useState<(string | number)[]>(() => materials ?? []);
+  const cats = baseCats;
+  const mats = materials;
 
   const options = {
     grid: { top: 20, right: 8, bottom: 24, left: 36 },
@@ -94,7 +123,9 @@ export default function BarEchart({
       renderMode: 'html',
       backgroundColor: 'rgba(50,50,50,0.9)',
       borderColor: '#363642',
-      formatter: function (params: any[]) {
+      formatter: function (params: BarChart[]) {
+        console.log(params);
+
         const data = params[0]; // karena trigger axis, params array
         const value = data.value;
 

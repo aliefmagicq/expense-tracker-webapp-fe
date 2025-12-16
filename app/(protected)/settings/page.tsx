@@ -1,5 +1,5 @@
 import { appConfig } from '@/app.config';
-import { fetchServer } from '@/utils/axios/fetch-server';
+import { fetchServer } from '@/features/core/axios/fetch-server';
 
 async function SettingsPage() {
   const res = await fetchServer({
@@ -7,8 +7,6 @@ async function SettingsPage() {
     url: `${appConfig.laravelApiURL}/auth/me`,
     includeAuthorization: true,
   });
-
-  console.log(JSON.stringify(res, null, 2));
 
   return (
     <div>

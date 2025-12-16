@@ -1,8 +1,8 @@
 'use client';
 
 import { getFirstPathname } from '@/lib/utils';
-import SidebarLists, { SIDEBAR_LISTS } from './ui/sidebar-lists';
-import SidebarLogo from './ui/sidebar-logo';
+import SidebarLists, { SIDEBAR_LISTS } from './sidebar-lists';
+import SidebarLogo from './sidebar-logo';
 import { usePathname } from 'next/navigation';
 
 export default function Sidebar() {

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import SignIn from './_components/sign-in';
+import SignIn from '../../../features/auth/sign-in/components/sign-in';
 
 function SignInPage() {
   return (

@@ -20,8 +20,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { fetchClient } from '@/utils/axios/fetch-client';
-import AuthSchema from '@/utils/schemas/auth.schema';
+import { fetchClient } from '@/features/core/axios/fetch-client';
+import AuthSchema from '@/features/core/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';

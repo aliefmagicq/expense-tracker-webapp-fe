@@ -1,6 +1,6 @@
 'use client';
 
-import axios, { AxiosError } from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { JWTPayload } from 'jose';
 import { getServerSession } from '../auth/session.action';
 
@@ -65,9 +65,38 @@ export async function fetchClient({
       const data = res.data;
       return data;
     }
-  } catch (err) {
-    if (err instanceof AxiosError) {
-      throw new Error(err.response?.data.message as string);
+  } catch (error) {
+    if (isAxiosError(error)) {
+      if (error.response) {
+        /**
+         * Server error 4** 5**
+         */
+        console.error(
+          'Server error:',
+          error.response.status,
+          error.response.data
+        );
+
+        throw new Error(error.response.data.message || 'Server error');
+      } else if (error.request) {
+        /**
+         * Network error
+         */
+        console.error('Network error:', error.request);
+        throw new Error('Network error. Please check your connection'); // ✅ String message
+      } else {
+        /**
+         * Request setup error
+         */
+        console.error('Request error:', error.message);
+        throw new Error(error.message);
+      }
     }
+
+    /**
+     * Unexpected error
+     */
+    console.error('Unexpected error:', error);
+    throw error;
   }
 }

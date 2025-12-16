@@ -1,8 +1,8 @@
 import { appConfig } from '@/app.config';
-import CreateResponse from '@/utils/api/response';
-import AuthSession from '@/utils/auth/auth';
-import { fetchServer } from '@/utils/axios/fetch-server';
-import AuthSchema from '@/utils/schemas/auth.schema';
+import CreateResponse from '@/features/core/api/response';
+import AuthSession from '@/features/core/auth/auth';
+import { fetchServer } from '@/features/core/axios/fetch-server';
+import AuthSchema from '@/features/core/schemas/auth.schema';
 
 export async function POST(request: Request) {
   const body = await request.json();

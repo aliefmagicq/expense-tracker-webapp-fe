@@ -1,4 +1,4 @@
-import { getServerSidePathname } from '@/utils/auth/get-server-side-pathname';
+import { getServerSidePathname } from '@/features/core/auth/get-server-side-pathname';
 import { ChevronRight, House } from 'lucide-react';
 import Link from 'next/link';
 
